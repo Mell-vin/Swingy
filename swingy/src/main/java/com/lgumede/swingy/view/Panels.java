@@ -2,24 +2,33 @@ package com.lgumede.swingy.view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.lgumede.swingy.controller.ControllerClass;
+import com.lgumede.swingy.model.modelInterfaces.EvilVills;
+import com.lgumede.swingy.model.modelInterfaces.FightReady;
+import com.lgumede.swingy.model.villains.Filler;
+
 import java.awt.*;
 
 
 public class Panels extends JFrame {
-    static JPanel panel = new JPanel();
-    private Container playArea = new Container();
+     JPanel panel = new JPanel();
+    private Container playArea;
     private Color clr = Color.BLACK;
     private int btnH = 30;
     private int btnW = 90;
-    JLabel alert = new JLabel("");
-    public JButton[] allBtns;
-    public JButton[][] grid;
+    public  JLabel alert = new JLabel("");
+    public JButton[] allBtns = null;
+    public  JButton[][] grid = null;
+     Filler F = new Filler();
+    ControllerClass CC = new ControllerClass();
 
     private final String[] btnNames = {"New hero",
             "Prev hero",
@@ -34,7 +43,8 @@ public class Panels extends JFrame {
             "West",
             "Fight!",
             "Run!",
-            "Restart"
+            "Restart",
+            "next game"
     };
     
     public JPanel startView(JPanel panel, Panels viewPanel) {
@@ -62,21 +72,47 @@ public class Panels extends JFrame {
         return null;
     }
 
-    public JPanel gameView(JPanel panel, Panels viewPanel, ImageIcon img, int W_H) {
+    public JPanel gameView(JPanel panel, Panels viewPanel, FightReady hero, EvilVills villain) {
         if (panel != null && viewPanel != null) {
-            int part1 = (W_H - 1) * 5;
-            int part2 = 10 - (W_H % 2);
+            int level = hero.getLevel();
+            this.setPlayGrid(level);
+            int part1 = (level - 1) * 5;
+            int part2 = 10 - (level % 2);
             int dims = part1 + part2;
-
-            playArea = getContentPane();
+            //System.out.println("Dims on level up is " + dims);
+            playArea = new Container();
+            if (level == 0){
+                playArea = getContentPane();
+            }
+            playArea.setLayout(null);
             playArea.setLayout(new GridLayout(dims, dims));
             for (int i = 0; i < dims; i++) {
                 for (int j = 0; j < dims; j++){
+                    System.out.println("i and dims and j: " + i + " "  + dims  + " " + j);
+                    if (i % 2 == 0) {
+                        if (j % 2 == 1) {
+                            if ((new Random()).nextInt(2) == 1){
+                                villain = F.newVillain(i, level);
+                            //this.grid[i][j].setBackground(Color.BLUE);
+                            this.grid[i][j].setText(villain.getName());
+                            this.grid[i][j].setForeground(clr);
+                            }
+                        }
+                    } else if ( i % 2 == 1){
+                        if (j % 2 == 0) {
+                            if ((new Random()).nextInt(2) == 1) {
+                                villain = F.newVillain(i, level);
+                            //this.grid[i][j].setBackground(Color.BLUE);
+                            this.grid[i][j].setText(villain.getName());
+                            this.grid[i][j].setForeground(clr);
+                            }
+                        }
+                    }
                     playArea.add(grid[i][j]);
                 }
             }
             playArea.setBounds(20, 20, 600, 650);
-            this.grid[(int) Math.ceil(dims / 2)][(int) Math.ceil(dims / 2)].setIcon(img);
+            this.grid[(int) Math.ceil(dims / 2)][(int) Math.ceil(dims / 2)].setIcon(hero.getHero());
             panel.removeAll();
             panel.add(playArea);
             panel.add(this.allBtns[7]);
@@ -85,32 +121,15 @@ public class Panels extends JFrame {
             panel.add(this.allBtns[10]);
             panel.add(this.allBtns[11]);
             panel.add(this.allBtns[12]);
-            panel.add(this.allBtns[13]);
             panel.revalidate();
             panel.repaint();
-            return (panel);
+            return panel;
         }
         return null;
     }
 
-    public void moveHero(JPanel panel, int num, ImageIcon img, int W_H) {
-        int part1 = (W_H - 1) * 5;
-        int part2 = 10 - (W_H % 2);
-        int dims = part1 + part2;
-        int x = (int) Math.ceil(dims / 2);
-        int y = (int) Math.ceil(dims / 2);
-        System.out.println("x and dims and y " + x + " " + dims + " " + y);
-        if (num == 1) {
-            this.grid[x][y + 1].setIcon(img);
-        } else if (num == 2) {
-            this.grid[x][y - 1].setIcon(img);
-        } else if (num == 3) {
-            this.grid[x + 1][y].setIcon(img);
-        } else if (num == 4) {
-            this.grid[x - 1][y].setIcon(img);
-        }
-        panel.revalidate();
-        panel.repaint();
+    public void moveHero(JPanel panel, int num, FightReady hero) {
+        this.CC.moveHero(panel, num, hero, this.grid, this.alert);
     }
 
     public void setBtns () {
@@ -118,7 +137,7 @@ public class Panels extends JFrame {
         int y = 20;
         int strtBtn = 200;
         int chsBtn = 40;
-        allBtns = new JButton[14];
+        allBtns = new JButton[15];
 
         for (int i = 0; i < this.allBtns.length; i++){
             this.allBtns[i] = new JButton(this.btnNames[i]);
@@ -141,6 +160,7 @@ public class Panels extends JFrame {
         int part1 = (W_H - 1) * 5;
         int part2 = 10 - (W_H % 2);
         int dims = part1 + part2;
+        this.grid = null;
         this.grid = new JButton[dims][dims];
         for (int i = 0; i < dims; i++) {
             for (int j = 0; j < dims; j++){

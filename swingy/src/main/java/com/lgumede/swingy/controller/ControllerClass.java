@@ -1,0 +1,133 @@
+package com.lgumede.swingy.controller;
+
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.lgumede.swingy.model.modelInterfaces.EvilVills;
+import com.lgumede.swingy.model.modelInterfaces.FightReady;
+import com.lgumede.swingy.model.villains.Bane;
+import com.lgumede.swingy.model.villains.FreizaGold;
+import com.lgumede.swingy.model.villains.Hvitserk;
+import com.lgumede.swingy.model.villains.Ivar;
+import com.lgumede.swingy.model.villains.Thanos;
+import com.lgumede.swingy.view.Panels;
+
+public class ControllerClass {
+    public void moveHero(JPanel panel, int num, FightReady hero, JButton[][] grid, JLabel alert) {
+        int x = hero.getRow();
+        int y = hero.getCol();
+        int limit = hero.getLimit();
+        String villainName = "";
+
+        // for (int i = 0; i < limit; i++) {
+        //     for (int j = 0; j < limit; j++){
+        //         if (!(grid[i][j].getText().isEmpty())) {
+        //             System.out.println("Villian is " + grid[i][j].getText());
+        //         }
+        //     }
+        // }
+        if (x == (limit - 1) || y == (limit - 1) || x == 0 || y == 0){
+            System.out.println("game over??");
+            System.out.println("x and lim and y " + x + " " + + limit + " " + y);
+            alert.setBounds(630, 245, 150, 400);
+            alert.setText("YOU WIN!!");
+            panel.add(alert);
+        }else if (x > 0 && x < limit && y > 0 &&  y < limit) {
+            grid[x][y].setIcon(null);
+            //System.out.println("x and y " + x + " " + " " + y);
+            if (num == 1) {
+                villainName = grid[x - 1][y].getText();
+                grid[x - 1][y].setIcon(hero.getHero());
+                hero.setRow(-1);
+                System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
+            } else if (num == 2) {
+                villainName = grid[x + 1][y].getText();
+                grid[x + 1][y].setIcon(hero.getHero());
+                hero.setRow(1);
+                System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
+            } else if (num == 3) {
+                villainName = grid[x][y + 1].getText();
+                grid[x][y + 1].setIcon(hero.getHero());
+                hero.setCol(1);
+                System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
+            } else if (num == 4) {
+                villainName = grid[x][y - 1].getText();
+                grid[x][y - 1].setIcon(hero.getHero());
+                hero.setCol(-1);
+                System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
+            }
+            if(!(villainName.isEmpty())){
+                alert.setBounds(630, 245, 250, 400);
+                alert.setText("YOU must fight " + villainName);
+                panel.add(alert);
+            } else {
+                alert.setBounds(630, 245, 250, 400);
+                alert.setText(null);
+                panel.add(alert);
+            }
+        }
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    public void fight(JPanel panel, Panels viewPanel, FightReady hero, JButton[][] grid) {
+        int i = hero.getRow();
+        int j = hero.getCol();
+        String name;
+        EvilVills villain;
+        int heroDef = hero.getDefense();
+        int heroLvl = hero.getLevel();
+        int villainAttack;
+        int rand = new Random().nextInt(hero.getLevel() + 1);
+
+        if (grid != null){
+            name = grid[i][j].getText();
+            if (name.isEmpty()){
+                viewPanel.alert.setText("No villain here!");
+                panel.add(viewPanel.alert);
+            } else {
+                if (name.equals("Bane")){
+                    villain = new Bane();
+                } else if (name.equals("Freiza Gold")){
+                    villain = new FreizaGold();
+                } else if (name.equals("Hvitserk")){
+                    villain = new Hvitserk();
+                } else if (name.equals("Ivar")){
+                    villain = new Ivar();
+                } else if (name.equals("Thanosy")){
+                    villain = new Thanos();
+                } else {
+                    return;
+                }
+                // viewPanel.alert.setText(name);
+                // panel.add(viewPanel.alert);
+                villainAttack = villain.getAttack();
+                if (heroDef < villainAttack) {
+                    viewPanel.alert.setText("You lost. Game over");
+                    panel.add(viewPanel.alert);
+                } else if (heroDef == villainAttack) {
+                    if (rand == heroLvl){
+                        viewPanel.alert.setText("You Win!");
+                        panel.add(viewPanel.allBtns[14]);
+                        panel.add(viewPanel.alert);
+                    } else {
+                        viewPanel.alert.setText("You lost. Game over");
+                        panel.add(viewPanel.allBtns[13]);
+                        panel.add(viewPanel.alert);
+                    }
+                } else if (heroDef > villainAttack) {
+                    viewPanel.alert.setText("You Win!");
+                        panel.add(viewPanel.allBtns[14]);
+                        panel.add(viewPanel.alert);
+                        hero.upgradeHero(villainAttack, panel, viewPanel, villain);
+                }
+        }
+            panel.revalidate();
+            panel.repaint();
+        }
+        return;
+    }
+}

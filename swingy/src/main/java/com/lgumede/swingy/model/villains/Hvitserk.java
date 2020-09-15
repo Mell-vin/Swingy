@@ -1,8 +1,21 @@
 package com.lgumede.swingy.model.villains;
 
-public class Hvitserk{
-	private String name = "Hvitserk The Dark";
+import com.lgumede.swingy.model.modelInterfaces.EvilVills;
+
+public class Hvitserk implements EvilVills {
+	private String name = "Hvitserk";
 	private final int attack = 11;
-	private final int experienceGain = 1500;
-	private final int defense = 6;
+	private final int experienceGain = 1300;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public int getAttack() {
+		return this.attack;
+	}
+
+	public int getExperienceGain() {
+		return this.experienceGain;
+	}
 }

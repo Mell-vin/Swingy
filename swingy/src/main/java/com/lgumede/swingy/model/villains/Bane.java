@@ -1,8 +1,23 @@
 package com.lgumede.swingy.model.villains;
 
-public class Bane{
+import java.awt.Color;
+
+import com.lgumede.swingy.model.modelInterfaces.EvilVills;
+
+public class Bane implements EvilVills {
 	private String name = "Bane";
 	private final int attack = 25;
 	private final int experienceGain = 3500;
-	private final int defense = 20;
+
+	public String getName() {
+		return this.name;
+	}
+
+	public int getAttack() {
+		return this.attack;
+	}
+
+	public int getExperienceGain() {
+		return this.experienceGain;
+	}
 }
