@@ -57,6 +57,10 @@ public class RockRoller extends Heroes implements FightReady{
 		this.setExperience(villain.getExperienceGain());
 		this.setDefense(villain.getAttack());
 		int tmp2 = this.getExperience();
+		int part1;
+        int part2;
+		int dims;
+			
 		if (tmp2 >= 12200){
 			this.setLevel(5);
 		} else if (tmp2 >= 8050){
@@ -75,5 +79,9 @@ public class RockRoller extends Heroes implements FightReady{
 			panel.revalidate();
 			panel.repaint();
 		}
+		part1 = (this.getLevel() - 1) * 5;
+		part2 = 10 - (this.getLevel() % 2);
+		dims = part1 + part2;
+		this.resetRowCol((int) Math.ceil(dims / 2));
 	}
 }

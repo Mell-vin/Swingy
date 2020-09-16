@@ -3,6 +3,8 @@ package com.lgumede.swingy.view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -79,12 +81,15 @@ public class GUI implements ActionListener {
         }  else if (e.getSource() == viewPanels.allBtns[11]) {
             this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
         }  else if (e.getSource() == viewPanels.allBtns[12]) {
-            System.out.println("Prev");
+            if ((new Random()).nextInt(4) == 1){
+                this.viewPanels.CC.runAway(panel, hero, this.viewPanels.grid, this.viewPanels.alert);
+            } else {
+                this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
+            }
         }  else if (e.getSource() == viewPanels.allBtns[13]) {
             System.out.println("Prev");
         }  else if (e.getSource() == viewPanels.allBtns[14]) {
-            //System.out.println("hero level is " + hero.getLevel());
-            //this.viewPanels.setPlayGrid(hero.getLevel());
+            viewPanels.alert.setText(" ");
             GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
         }
     }

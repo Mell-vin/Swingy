@@ -111,6 +111,7 @@ public class Panels extends JFrame {
                     playArea.add(grid[i][j]);
                 }
             }
+            System.out.println("Row and col " + hero.getRow() + " "  + hero.getCol());
             playArea.setBounds(20, 20, 600, 650);
             this.grid[(int) Math.ceil(dims / 2)][(int) Math.ceil(dims / 2)].setIcon(hero.getHero());
             panel.removeAll();

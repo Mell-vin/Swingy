@@ -16,63 +16,70 @@ import com.lgumede.swingy.model.villains.Thanos;
 import com.lgumede.swingy.view.Panels;
 
 public class ControllerClass {
+
+    /*
+    Move hero around the board
+    */
     public void moveHero(JPanel panel, int num, FightReady hero, JButton[][] grid, JLabel alert) {
         int x = hero.getRow();
         int y = hero.getCol();
+        hero.setPrev(x, y);
         int limit = hero.getLimit();
         String villainName = "";
 
-        // for (int i = 0; i < limit; i++) {
-        //     for (int j = 0; j < limit; j++){
-        //         if (!(grid[i][j].getText().isEmpty())) {
-        //             System.out.println("Villian is " + grid[i][j].getText());
-        //         }
-        //     }
-        // }
-        if (x == (limit - 1) || y == (limit - 1) || x == 0 || y == 0){
-            System.out.println("game over??");
-            System.out.println("x and lim and y " + x + " " + + limit + " " + y);
+        if (!(grid[x][y].getText().isEmpty())){
             alert.setBounds(630, 245, 150, 400);
-            alert.setText("YOU WIN!!");
+            alert.setText("you must fight/run");
             panel.add(alert);
-        }else if (x > 0 && x < limit && y > 0 &&  y < limit) {
-            grid[x][y].setIcon(null);
-            //System.out.println("x and y " + x + " " + " " + y);
-            if (num == 1) {
-                villainName = grid[x - 1][y].getText();
-                grid[x - 1][y].setIcon(hero.getHero());
-                hero.setRow(-1);
-                System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
-            } else if (num == 2) {
-                villainName = grid[x + 1][y].getText();
-                grid[x + 1][y].setIcon(hero.getHero());
-                hero.setRow(1);
-                System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
-            } else if (num == 3) {
-                villainName = grid[x][y + 1].getText();
-                grid[x][y + 1].setIcon(hero.getHero());
-                hero.setCol(1);
-                System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
-            } else if (num == 4) {
-                villainName = grid[x][y - 1].getText();
-                grid[x][y - 1].setIcon(hero.getHero());
-                hero.setCol(-1);
-                System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
-            }
-            if(!(villainName.isEmpty())){
-                alert.setBounds(630, 245, 250, 400);
-                alert.setText("YOU must fight " + villainName);
+        } else {
+            if (x == (limit - 1) || y == (limit - 1) || x == 0 || y == 0){
+                // System.out.println("game over??");
+                // System.out.println("x and lim and y " + x + " " + + limit + " " + y);
+                alert.setBounds(630, 245, 150, 400);
+                alert.setText("YOU WIN!!");
                 panel.add(alert);
-            } else {
-                alert.setBounds(630, 245, 250, 400);
-                alert.setText(null);
-                panel.add(alert);
+            } else if (x > 0 && x < limit && y > 0 &&  y < limit) {
+                grid[x][y].setIcon(null);
+                //System.out.println("x and y " + x + " " + " " + y);
+                if (num == 1) {
+                    villainName = grid[x - 1][y].getText();
+                    grid[x - 1][y].setIcon(hero.getHero());
+                    hero.setRow(-1);
+                    //System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
+                } else if (num == 2) {
+                    villainName = grid[x + 1][y].getText();
+                    grid[x + 1][y].setIcon(hero.getHero());
+                    hero.setRow(1);
+                    //System.out.println("Limit, x and y: "  + limit + " " + (x) + " " + y);
+                } else if (num == 3) {
+                    villainName = grid[x][y + 1].getText();
+                    grid[x][y + 1].setIcon(hero.getHero());
+                    hero.setCol(1);
+                    //System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
+                } else if (num == 4) {
+                    villainName = grid[x][y - 1].getText();
+                    grid[x][y - 1].setIcon(hero.getHero());
+                    hero.setCol(-1);
+                    //System.out.println("Limit, x and y: "  + limit + " " + x + " " + (y));
+                }
+                if(!(villainName.isEmpty())){
+                    alert.setBounds(630, 245, 250, 400);
+                    alert.setText("YOU must fight " + villainName);
+                    panel.add(alert);
+                } else {
+                    alert.setBounds(630, 245, 250, 400);
+                    alert.setText(null);
+                    panel.add(alert);
+                }
             }
+            panel.revalidate();
+            panel.repaint();
         }
-        panel.revalidate();
-        panel.repaint();
     }
-
+    
+    /*
+    Fight function. puts hero against villain
+     */
     public void fight(JPanel panel, Panels viewPanel, FightReady hero, JButton[][] grid) {
         int i = hero.getRow();
         int j = hero.getCol();
@@ -130,4 +137,27 @@ public class ControllerClass {
         }
         return;
     }
+
+    /*
+    Run method, if player chooses to run
+     */
+
+     public void runAway(JPanel panel, FightReady hero, JButton[][] grid, JLabel alert){
+        int x;
+        int y;
+
+        //if ((new Random()).nextInt(4) == 1){
+            x = hero.getRow();
+            y = hero.getCol();
+            grid[x][y].setIcon(null);
+            x = hero.getPrevRow();
+            y = hero.getPrevCol();
+            grid[x][y].setIcon(hero.getHero());
+            hero.resetRowCol(x, y);
+            alert.setText("Chicken!");
+            panel.add(alert);
+            panel.revalidate();
+            panel.repaint();
+       // }
+     }
 }

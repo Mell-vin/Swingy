@@ -7,12 +7,15 @@ public abstract class Heroes {
 	private int row;
 	private int col;
 	private int limit;
+	private int prevRow;
+	private int prevCol;
 	//artifact;
 	
 	public Heroes (String name, String heroClass) {
 		this.heroLimit(this.level);
 		this.setCol((int) Math.ceil(this.limit / 2));
 		this.setRow((int) Math.ceil(this.limit / 2));
+		this.setPrev((int) Math.ceil(this.limit / 2), (int) Math.ceil(this.limit / 2));
 		this.name = name;
 		this.heroClass = heroClass;
 	}
@@ -38,6 +41,11 @@ public abstract class Heroes {
 		this.row = num;
 	}
 
+	public void resetRowCol(int x, int y) {
+		this.col = y;
+		this.row = x;
+	}
+
 	public int getCol() {
 		return this.col;
 	}
@@ -55,6 +63,19 @@ public abstract class Heroes {
         int part2 = 10 - (level % 2);
 		int dims = part1 + part2;
 		this.limit = dims;
+	}
+
+	public void setPrev(int prevRow,int prevCol) {
+		this.prevRow = prevRow;
+		this.prevCol = prevCol;
+	}
+
+	public int getPrevRow() {
+		return this.prevRow;
+	}
+
+	public int getPrevCol() {
+		return this.prevCol;
 	}
 
 	public void setName(String name) {

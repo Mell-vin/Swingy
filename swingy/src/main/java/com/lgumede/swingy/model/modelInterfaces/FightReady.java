@@ -16,5 +16,9 @@ public interface FightReady {
     public void setCol(int num);
     public void setRow(int num);
     public int getDefense();
+    public int getPrevRow();
+    public int getPrevCol();
+    public void setPrev(int prevRow, int prevCol);
+    public void resetRowCol(int x, int y);
 
 }

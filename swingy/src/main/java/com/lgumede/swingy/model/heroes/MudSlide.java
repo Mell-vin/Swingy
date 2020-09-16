@@ -79,5 +79,6 @@ public class MudSlide extends Heroes implements FightReady{
 		part2 = 10 - (this.getLevel() % 2);
 		dims = part1 + part2;
 		this.resetRowCol((int) Math.ceil(dims / 2));
+		this.setPrev((int) Math.ceil(dims / 2), (int) Math.ceil(dims / 2));
 	}
 }
