@@ -1,10 +1,7 @@
 package com.lgumede.swingy.view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Random;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -71,6 +68,9 @@ public class Panels extends JFrame {
         }
         return null;
     }
+    /*
+        creates the game grid as well as the game button
+    */
 
     public JPanel gameView(JPanel panel, Panels viewPanel, FightReady hero, EvilVills villain) {
         if (panel != null && viewPanel != null) {
@@ -79,21 +79,24 @@ public class Panels extends JFrame {
             int part1 = (level - 1) * 5;
             int part2 = 10 - (level % 2);
             int dims = part1 + part2;
+            if (level == 5) {
+                this.alert.setText("Max level reached.");
+            }
             //System.out.println("Dims on level up is " + dims);
             playArea = new Container();
-            if (level == 0){
-                playArea = getContentPane();
-            }
+            // if (hero.getExperience() == 0){
+            //     playArea = getContentPane();
+            // }
             playArea.setLayout(null);
             playArea.setLayout(new GridLayout(dims, dims));
             for (int i = 0; i < dims; i++) {
                 for (int j = 0; j < dims; j++){
-                    System.out.println("i and dims and j: " + i + " "  + dims  + " " + j);
+                    //System.out.println("i and dims and j: " + i + " "  + dims  + " " + j);
                     if (i % 2 == 0) {
                         if (j % 2 == 1) {
                             if ((new Random()).nextInt(2) == 1){
                                 villain = F.newVillain(i, level);
-                            //this.grid[i][j].setBackground(Color.BLUE);
+                            this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
                             this.grid[i][j].setForeground(clr);
                             }
@@ -102,7 +105,7 @@ public class Panels extends JFrame {
                         if (j % 2 == 0) {
                             if ((new Random()).nextInt(2) == 1) {
                                 villain = F.newVillain(i, level);
-                            //this.grid[i][j].setBackground(Color.BLUE);
+                            this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
                             this.grid[i][j].setForeground(clr);
                             }
@@ -111,11 +114,12 @@ public class Panels extends JFrame {
                     playArea.add(grid[i][j]);
                 }
             }
-            System.out.println("Row and col " + hero.getRow() + " "  + hero.getCol());
+            //System.out.println("Row and col " + hero.getRow() + " "  + hero.getCol());
             playArea.setBounds(20, 20, 600, 650);
             this.grid[(int) Math.ceil(dims / 2)][(int) Math.ceil(dims / 2)].setIcon(hero.getHero());
             panel.removeAll();
             panel.add(playArea);
+            panel.add(this.alert);
             panel.add(this.allBtns[7]);
             panel.add(this.allBtns[8]);
             panel.add(this.allBtns[9]);
@@ -129,8 +133,8 @@ public class Panels extends JFrame {
         return null;
     }
 
-    public void moveHero(JPanel panel, int num, FightReady hero) {
-        this.CC.moveHero(panel, num, hero, this.grid, this.alert);
+    public void moveHero(JPanel panel, int num, FightReady hero, JButton[] btn) {
+        this.CC.moveHero(panel, num, hero, this.grid, this.alert, this.allBtns);
     }
 
     public void setBtns () {

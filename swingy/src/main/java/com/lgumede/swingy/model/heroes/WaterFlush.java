@@ -1,6 +1,7 @@
 package com.lgumede.swingy.model.heroes;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
@@ -57,6 +58,40 @@ public class WaterFlush extends Heroes implements FightReady {
 		return this.hero;
 	}
 
+	public void borderReached(int xpGain, JLabel alert, JPanel panel) {
+		int tmp = this.getLevel();
+		this.setExperience(xpGain);
+		int tmp2 = this.getExperience();
+		int part1;
+        int part2;
+		int dims;
+
+		if (tmp2 >= 12200){
+			this.setLevel(5);
+		} else if (tmp2 >= 8050){
+			this.setLevel(4);
+		} else if (tmp2 >= 4800){
+			this.setLevel(3);
+		} else if (tmp2 >= 2450){
+			this.setLevel(2);
+		} else if (tmp2 >= 1000){
+			this.setLevel(1);
+		}
+		this.heroLimit(this.getLevel());
+		if (this.getLevel() > tmp) {
+			alert.setText(".+ 500 xp. Level up! " + this.getLevel());
+		} else {
+			alert.setText(".YOU WIN!!");
+		}
+		panel.add(alert);
+		panel.revalidate();
+		panel.repaint();
+		part1 = (this.getLevel() - 1) * 5;
+		part2 = 10 - (this.getLevel() % 2);
+		dims = part1 + part2;
+		//this.resetRowCol((int) Math.ceil(dims / 2));
+	}
+
 	public void upgradeHero(int villainAttack, JPanel panel, Panels viewPanel, EvilVills villain) {
 		int tmp = this.getLevel();
 		this.setExperience(villain.getExperienceGain());
@@ -87,6 +122,6 @@ public class WaterFlush extends Heroes implements FightReady {
 		part1 = (this.getLevel() - 1) * 5;
 		part2 = 10 - (this.getLevel() % 2);
 		dims = part1 + part2;
-		this.resetRowCol((int) Math.ceil(dims / 2));
+		//this.resetRowCol((int) Math.ceil(dims / 2));
 	}
 }

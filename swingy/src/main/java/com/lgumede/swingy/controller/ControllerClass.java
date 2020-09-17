@@ -20,23 +20,28 @@ public class ControllerClass {
     /*
     Move hero around the board
     */
-    public void moveHero(JPanel panel, int num, FightReady hero, JButton[][] grid, JLabel alert) {
+    public void moveHero(JPanel panel, int num, FightReady hero, JButton[][] grid, JLabel alert, JButton[] allbtns) {
         int x = hero.getRow();
         int y = hero.getCol();
         hero.setPrev(x, y);
         int limit = hero.getLimit();
         String villainName = "";
 
+        //System.out.println("x and y " + x + " " + " " + y);
+        
         if (!(grid[x][y].getText().isEmpty())){
             alert.setBounds(630, 245, 150, 400);
             alert.setText("you must fight/run");
             panel.add(alert);
         } else {
             if (x == (limit - 1) || y == (limit - 1) || x == 0 || y == 0){
-                // System.out.println("game over??");
-                // System.out.println("x and lim and y " + x + " " + + limit + " " + y);
+                hero.borderReached(500, alert, panel);
+                panel.add(allbtns[14]);
+                panel.remove(allbtns[7]);
+                panel.remove(allbtns[8]);
+                panel.remove(allbtns[9]);
+                panel.remove(allbtns[10]);
                 alert.setBounds(630, 245, 150, 400);
-                alert.setText("YOU WIN!!");
                 panel.add(alert);
             } else if (x > 0 && x < limit && y > 0 &&  y < limit) {
                 grid[x][y].setIcon(null);
@@ -76,7 +81,7 @@ public class ControllerClass {
             panel.repaint();
         }
     }
-    
+
     /*
     Fight function. puts hero against villain
      */
@@ -88,7 +93,7 @@ public class ControllerClass {
         int heroDef = hero.getDefense();
         int heroLvl = hero.getLevel();
         int villainAttack;
-        int rand = new Random().nextInt(hero.getLevel() + 1);
+        int rand = new Random().nextInt(hero.getLevel() + 3);
 
         if (grid != null){
             name = grid[i][j].getText();
@@ -113,15 +118,17 @@ public class ControllerClass {
                 // panel.add(viewPanel.alert);
                 villainAttack = villain.getAttack();
                 if (heroDef < villainAttack) {
-                    viewPanel.alert.setText("You lost. Game over");
+                    viewPanel.alert.setText("Weak. Game over");
+                    panel.add(viewPanel.allBtns[13]);
                     panel.add(viewPanel.alert);
                 } else if (heroDef == villainAttack) {
                     if (rand == heroLvl){
                         viewPanel.alert.setText("You Win!");
                         panel.add(viewPanel.allBtns[14]);
                         panel.add(viewPanel.alert);
+                        hero.upgradeHero(villainAttack, panel, viewPanel, villain);
                     } else {
-                        viewPanel.alert.setText("You lost. Game over");
+                        viewPanel.alert.setText("Bad luck. Game over");
                         panel.add(viewPanel.allBtns[13]);
                         panel.add(viewPanel.alert);
                     }
@@ -132,6 +139,10 @@ public class ControllerClass {
                         hero.upgradeHero(villainAttack, panel, viewPanel, villain);
                 }
         }
+            panel.remove(viewPanel.allBtns[7]);
+            panel.remove(viewPanel.allBtns[8]);
+            panel.remove(viewPanel.allBtns[9]);
+            panel.remove(viewPanel.allBtns[10]);
             panel.revalidate();
             panel.repaint();
         }

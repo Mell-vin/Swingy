@@ -71,13 +71,13 @@ public class GUI implements ActionListener {
             GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
 
         }  else if (e.getSource() == viewPanels.allBtns[7]) {
-            this.viewPanels.moveHero(panel, 1, hero);
+            this.viewPanels.moveHero(panel, 1, hero, viewPanels.allBtns);
         }  else if (e.getSource() == viewPanels.allBtns[8]) {
-            this.viewPanels.moveHero(panel, 2, hero);
+            this.viewPanels.moveHero(panel, 2, hero, viewPanels.allBtns);
         }  else if (e.getSource() == viewPanels.allBtns[9]) {
-            this.viewPanels.moveHero(panel, 3, hero);
+            this.viewPanels.moveHero(panel, 3, hero, viewPanels.allBtns);
         }  else if (e.getSource() == viewPanels.allBtns[10]) {
-            this.viewPanels.moveHero(panel, 4, hero);
+            this.viewPanels.moveHero(panel, 4, hero, viewPanels.allBtns);
         }  else if (e.getSource() == viewPanels.allBtns[11]) {
             this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
         }  else if (e.getSource() == viewPanels.allBtns[12]) {
@@ -86,10 +86,9 @@ public class GUI implements ActionListener {
             } else {
                 this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
             }
-        }  else if (e.getSource() == viewPanels.allBtns[13]) {
-            System.out.println("Prev");
-        }  else if (e.getSource() == viewPanels.allBtns[14]) {
+        }  else if (e.getSource() == viewPanels.allBtns[14] || e.getSource() == viewPanels.allBtns[13]) {
             viewPanels.alert.setText(" ");
+            hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
             GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
         }
     }
