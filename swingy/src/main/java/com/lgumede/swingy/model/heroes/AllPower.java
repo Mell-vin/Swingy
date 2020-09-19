@@ -78,8 +78,10 @@ public class AllPower extends Heroes implements FightReady {
 		}
 		this.heroLimit(this.getLevel());
 		if (this.getLevel() > tmp) {
+			System.out.println(".+ 500 xp. Level up! " + this.getLevel());
 			alert.setText(".+ 500 xp. Level up! " + this.getLevel());
 		} else {
+			System.out.println(".YOU WIN!!");
 			alert.setText(".YOU WIN!!");
 		}
 		panel.add(alert);
@@ -114,6 +116,7 @@ public class AllPower extends Heroes implements FightReady {
 		}
 		this.heroLimit(this.getLevel());
 		if (this.getLevel() > tmp) {
+			System.out.println(".Level up! " + this.getLevel());
 			viewPanel.alert.setText(".Level up! " + this.getLevel());
 			panel.add(viewPanel.alert);
 			panel.revalidate();

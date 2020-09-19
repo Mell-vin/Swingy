@@ -31,6 +31,7 @@ public class ControllerClass {
         
         if (!(grid[x][y].getText().isEmpty())){
             alert.setBounds(630, 245, 150, 400);
+            System.out.println("you must fight/run");
             alert.setText("you must fight/run");
             panel.add(alert);
         } else {
@@ -69,9 +70,11 @@ public class ControllerClass {
                 }
                 if(!(villainName.isEmpty())){
                     alert.setBounds(630, 245, 250, 400);
+                    System.out.println("YOU must fight " + villainName);
                     alert.setText("YOU must fight " + villainName);
                     panel.add(alert);
                 } else {
+                    System.out.println("\nNo villian to fight\n");
                     alert.setBounds(630, 245, 250, 400);
                     alert.setText(null);
                     panel.add(alert);

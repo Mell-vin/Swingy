@@ -70,11 +70,14 @@ public class MudSlide extends Heroes implements FightReady{
 		}
 		this.heroLimit(this.getLevel());
 		if (this.getLevel() > tmp) {
+			System.out.println(".+ 500 xp. Level up! " + this.getLevel());
 			alert.setText(".+ 500 xp. Level up! " + this.getLevel());
 		} else {
+			System.out.println(".YOU WIN!!");
 			alert.setText(".YOU WIN!!");
 		}
 		panel.add(alert);
+		this.setDefense(7 + tmp);
 		panel.revalidate();
 		panel.repaint();
 		part1 = (this.getLevel() - 1) * 5;
@@ -105,7 +108,8 @@ public class MudSlide extends Heroes implements FightReady{
 		}
 		this.heroLimit(this.getLevel());
 		if (this.getLevel() > tmp) {
-			viewPanel.alert.setText("Level up! " + this.getLevel());
+			System.out.println(".Level up! " + this.getLevel());
+			viewPanel.alert.setText(".Level up! " + this.getLevel());
 			panel.add(viewPanel.alert);
 			panel.revalidate();
 			panel.repaint();
@@ -113,7 +117,6 @@ public class MudSlide extends Heroes implements FightReady{
 		part1 = (this.getLevel() - 1) * 5;
 		part2 = 10 - (this.getLevel() % 2);
 		dims = part1 + part2;
-		this.resetRowCol((int) Math.ceil(dims / 2));
-		//this.setPrev((int) Math.ceil(dims / 2), (int) Math.ceil(dims / 2));
+		//this.resetRowCol((int) Math.ceil(dims / 2));
 	}
 }
