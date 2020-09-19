@@ -41,7 +41,8 @@ public class Panels extends JFrame {
             "Fight!",
             "Run!",
             "Restart",
-            "next game"
+            "next game",
+            "console"
     };
     
     public JPanel startView(JPanel panel, Panels viewPanel) {
@@ -49,6 +50,7 @@ public class Panels extends JFrame {
             panel.setLayout(null);
             panel.add(this.allBtns[0]);
             panel.add(this.allBtns[1]);
+            panel.add(this.allBtns[15]);
             return (panel);
         }
         return null;
@@ -62,6 +64,7 @@ public class Panels extends JFrame {
             panel.add(this.allBtns[4]);
             panel.add(this.allBtns[5]);
             panel.add(this.allBtns[6]);
+            panel.add(this.allBtns[15]);
             panel.revalidate();
             panel.repaint();
             return (panel);
@@ -126,6 +129,7 @@ public class Panels extends JFrame {
             panel.add(this.allBtns[10]);
             panel.add(this.allBtns[11]);
             panel.add(this.allBtns[12]);
+            panel.add(this.allBtns[15]);
             panel.revalidate();
             panel.repaint();
             return panel;
@@ -142,7 +146,7 @@ public class Panels extends JFrame {
         int y = 20;
         int strtBtn = 200;
         int chsBtn = 40;
-        allBtns = new JButton[15];
+        allBtns = new JButton[16];
 
         for (int i = 0; i < this.allBtns.length; i++){
             this.allBtns[i] = new JButton(this.btnNames[i]);
@@ -157,8 +161,8 @@ public class Panels extends JFrame {
                 this.allBtns[i].setBounds(x, y, btnW, btnH);
                 y += btnH + 5;
             }
-            //this.allBtns[i].addActionListener(new GUI() {});
         }
+        this.allBtns[15].setBounds(x, 650, btnW, btnH);
     }
 
     public void setPlayGrid(int W_H) {

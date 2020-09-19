@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.lgumede.swingy.Console;
 import com.lgumede.swingy.model.heroes.AllPower;
 import com.lgumede.swingy.model.heroes.LightningRod;
 import com.lgumede.swingy.model.heroes.MudSlide;
@@ -24,6 +25,7 @@ public class GUI implements ActionListener {
 	static JFrame frame = new JFrame();
     static JPanel panel = new JPanel();
     static JLabel alerts = new JLabel("");
+    static Console cnsl = new Console();
     Panels viewPanels = new Panels();
     FightReady hero;
     EvilVills villain;
@@ -42,55 +44,6 @@ public class GUI implements ActionListener {
         frame.setVisible(true); //duuh
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == viewPanels.allBtns[0]) {
-            GUI.panel = viewPanels.scndView(panel, viewPanels);
-
-        } else if (e.getSource() == viewPanels.allBtns[1]) {
-            System.out.println("Prev");
-
-        }  else if (e.getSource() == viewPanels.allBtns[2]) {
-            hero = new LightningRod("Lightning Rod", "LR");
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-
-        }  else if (e.getSource() == viewPanels.allBtns[3]) {
-            hero = new WaterFlush("Water Flush",  "WF");
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-
-        }  else if (e.getSource() == viewPanels.allBtns[4]) {
-            hero = new RockRoller("Rock Roller", "RR");
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-
-        }  else if (e.getSource() == viewPanels.allBtns[5]) {
-            hero = new MudSlide("Mud slide", "MS");
-            this.viewPanels.setPlayGrid(hero.getLevel());
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-
-        }  else if (e.getSource() == viewPanels.allBtns[6]) {
-            hero = new AllPower("All power", "AP");
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-
-        }  else if (e.getSource() == viewPanels.allBtns[7]) {
-            this.viewPanels.moveHero(panel, 1, hero, viewPanels.allBtns);
-        }  else if (e.getSource() == viewPanels.allBtns[8]) {
-            this.viewPanels.moveHero(panel, 2, hero, viewPanels.allBtns);
-        }  else if (e.getSource() == viewPanels.allBtns[9]) {
-            this.viewPanels.moveHero(panel, 3, hero, viewPanels.allBtns);
-        }  else if (e.getSource() == viewPanels.allBtns[10]) {
-            this.viewPanels.moveHero(panel, 4, hero, viewPanels.allBtns);
-        }  else if (e.getSource() == viewPanels.allBtns[11]) {
-            this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
-        }  else if (e.getSource() == viewPanels.allBtns[12]) {
-            if ((new Random()).nextInt(4) == 1){
-                this.viewPanels.CC.runAway(panel, hero, this.viewPanels.grid, this.viewPanels.alert);
-            } else {
-                this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
-            }
-        }  else if (e.getSource() == viewPanels.allBtns[14] || e.getSource() == viewPanels.allBtns[13]) {
-            viewPanels.alert.setText(" ");
-            hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
-            GUI.panel = viewPanels.gameView(panel, viewPanels, hero, villain);
-        }
-    }
+    
 }
 // 🤣🤣🤣🤣🤣
