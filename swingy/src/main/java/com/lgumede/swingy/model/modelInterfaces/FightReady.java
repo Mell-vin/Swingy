@@ -1,7 +1,6 @@
 package com.lgumede.swingy.model.modelInterfaces;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,9 +11,14 @@ public interface FightReady {
     public String getName();
     public int getLevel();
     public ImageIcon getHero();
+    public String getArtifactName();
+    public void setAttack(int num);
+    public void setDefense(int num);
+    public void setHitPoints(int num);
     public int getRow();
     public int getCol();
     public int getLimit();
+    public void setArtifact(String artName, int num);
     public void setCol(int num);
     public void setRow(int num);
     public int getDefense();

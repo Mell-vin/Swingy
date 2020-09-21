@@ -12,13 +12,13 @@ public class AllPower extends Heroes implements FightReady {
 	private int experience = 0;
 	private int attack = 12;
 	private int defense = 12;
+	private String artifact = "";
 	private int hitPoints = 10;
 	private String file = "C:\\Users\\gumed\\Desktop\\CodeWorld_hehehe_\\Swingy\\swingy\\src\\main\\resources\\images\\heroes\\allPower.png";
 	private ImageIcon hero = new ImageIcon(file);
 
 	public AllPower(String name, String heroClass) {
 		super(name, heroClass);
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getExperience() {
@@ -34,7 +34,7 @@ public class AllPower extends Heroes implements FightReady {
 	}
 
 	public void setAttack(int attack) {
-		this.attack = attack;
+		this.attack += attack;
 	}
 
 	public int getDefense() {
@@ -45,12 +45,27 @@ public class AllPower extends Heroes implements FightReady {
 		this.defense += defense;
 	}
 
+	public void setArtifact(String artifactName, int num){
+		this.artifact = artifactName;
+		if (artifactName.equals("Weapon")){
+			this.setAttack(num);
+		} else if (artifactName.equals("Armor")){
+			this.setDefense(num);
+		} else if (artifactName.equals("Helm")){
+			this.setHitPoints(num);
+		}
+	}
+
+	public String getArtifactName() {
+		return this.artifact;
+	}
+
 	public int getHitPoints() {
 		return hitPoints;
 	}
 
 	public void setHitPoints(int hitPoints) {
-		this.hitPoints = hitPoints;
+		this.hitPoints += hitPoints;
 	}
 
 	public ImageIcon getHero() {
@@ -61,9 +76,6 @@ public class AllPower extends Heroes implements FightReady {
 		int tmp = this.getLevel();
 		this.setExperience(xpGain);
 		int tmp2 = this.getExperience();
-		int part1;
-        int part2;
-		int dims;
 
 		if (tmp2 >= 12200){
 			this.setLevel(5);
@@ -88,9 +100,7 @@ public class AllPower extends Heroes implements FightReady {
 		this.setDefense(7 + tmp);
 		panel.revalidate();
 		panel.repaint();
-		part1 = (this.getLevel() - 1) * 5;
-		part2 = 10 - (this.getLevel() % 2);
-		dims = part1 + part2;
+		System.out.println("_______________________________________________________\n");
 		//this.resetRowCol((int) Math.ceil(dims / 2));
 	}
 
@@ -99,9 +109,6 @@ public class AllPower extends Heroes implements FightReady {
 		this.setExperience(villain.getExperienceGain());
 		this.setDefense(villain.getAttack());
 		int tmp2 = this.getExperience();
-		int part1;
-        int part2;
-		int dims;
 			
 		if (tmp2 >= 12200){
 			this.setLevel(5);
@@ -116,15 +123,13 @@ public class AllPower extends Heroes implements FightReady {
 		}
 		this.heroLimit(this.getLevel());
 		if (this.getLevel() > tmp) {
-			System.out.println(".Level up! " + this.getLevel());
+			System.out.println(".Level up! " + this.getLevel() + "\n");
 			viewPanel.alert.setText(".Level up! " + this.getLevel());
 			panel.add(viewPanel.alert);
 			panel.revalidate();
 			panel.repaint();
 		}
-		part1 = (this.getLevel() - 1) * 5;
-		part2 = 10 - (this.getLevel() % 2);
-		dims = part1 + part2;
+		System.out.println("_______________________________________________________\n");
 		//this.resetRowCol((int) Math.ceil(dims / 2));
 	}
 }

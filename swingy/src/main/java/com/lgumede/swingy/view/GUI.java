@@ -61,7 +61,8 @@ public class GUI implements ActionListener {
                             + "7) to restart\n"
                             + "9) for next level\n"
                             + "5) to start GUI\n"
-                            + "0) to exit");
+                            + "0) to return to start\n");
+            System.out.println("_______________________________________________________\n");
             choice = Integer.parseInt(input.nextLine());
 
             if (choice == 0){
@@ -92,6 +93,7 @@ public class GUI implements ActionListener {
                 hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
                 viewPanels.gameView(panel, viewPanels, hero, villain);
             }
+            System.out.println("_______________________________________________________\n");
         }
     }
 

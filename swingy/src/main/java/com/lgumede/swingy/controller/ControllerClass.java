@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.lgumede.swingy.model.artifacts.Artifacts;
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 import com.lgumede.swingy.model.modelInterfaces.FightReady;
 import com.lgumede.swingy.model.villains.Bane;
@@ -17,6 +18,7 @@ import com.lgumede.swingy.view.Panels;
 
 public class ControllerClass {
 
+    Artifacts artifact = new Artifacts();
     /*
     Move hero around the board
     */
@@ -31,7 +33,7 @@ public class ControllerClass {
         
         if (!(grid[x][y].getText().isEmpty())){
             alert.setBounds(630, 245, 150, 400);
-            System.out.println("you must fight/run");
+            System.out.println("you must fight/run\n");
             alert.setText("you must fight/run");
             panel.add(alert);
         } else {
@@ -70,11 +72,13 @@ public class ControllerClass {
                 }
                 if(!(villainName.isEmpty())){
                     alert.setBounds(630, 245, 250, 400);
-                    System.out.println("YOU must fight " + villainName);
+                    System.out.println("YOU must fight " + villainName + "\n");
+                    System.out.println("_______________________________________________________\n");
                     alert.setText("YOU must fight " + villainName);
                     panel.add(alert);
                 } else {
                     System.out.println("\nNo villian to fight\n");
+                    System.out.println("_______________________________________________________\n");
                     alert.setBounds(630, 245, 250, 400);
                     alert.setText(null);
                     panel.add(alert);
@@ -101,6 +105,8 @@ public class ControllerClass {
         if (grid != null){
             name = grid[i][j].getText();
             if (name.isEmpty()){
+                System.out.println("No villain here");
+                System.out.println("_______________________________________________________\n");
                 viewPanel.alert.setText("No villain here!");
                 panel.add(viewPanel.alert);
             } else {
@@ -121,27 +127,37 @@ public class ControllerClass {
                 // panel.add(viewPanel.alert);
                 villainAttack = villain.getAttack();
                 if (heroDef < villainAttack) {
+                    System.out.println("Weak. Game over\n");
                     viewPanel.alert.setText("Weak. Game over");
                     panel.add(viewPanel.allBtns[13]);
                     panel.add(viewPanel.alert);
                 } else if (heroDef == villainAttack) {
                     if (rand == heroLvl){
-                        viewPanel.alert.setText("You Win!");
+                        artifact.addArtifact(hero, villain);
+                        viewPanel.alert.setText("You won a " + hero.getArtifactName() + "\n");
                         panel.add(viewPanel.allBtns[14]);
                         panel.add(viewPanel.alert);
                         hero.upgradeHero(villainAttack, panel, viewPanel, villain);
                     } else {
+                        System.out.println("Bad luck. Game over\n");
                         viewPanel.alert.setText("Bad luck. Game over");
                         panel.add(viewPanel.allBtns[13]);
                         panel.add(viewPanel.alert);
                     }
                 } else if (heroDef > villainAttack) {
-                    viewPanel.alert.setText("You Win!");
+                    if (new Random().nextInt(3) == 1){
+                        artifact.addArtifact(hero, villain);
+                        viewPanel.alert.setText("nice! won a " + hero.getArtifactName() + "\n");
+                    } else {
+                        System.out.println("You Win!\n");
+                        viewPanel.alert.setText("You Win!");
+                    }
                         panel.add(viewPanel.allBtns[14]);
                         panel.add(viewPanel.alert);
                         hero.upgradeHero(villainAttack, panel, viewPanel, villain);
                 }
         }
+        System.out.println("_______________________________________________________\n");
             panel.remove(viewPanel.allBtns[7]);
             panel.remove(viewPanel.allBtns[8]);
             panel.remove(viewPanel.allBtns[9]);
@@ -168,6 +184,8 @@ public class ControllerClass {
             y = hero.getPrevCol();
             grid[x][y].setIcon(hero.getHero());
             hero.resetRowCol(x, y);
+            System.out.println("Chicken!");
+            System.out.println("_______________________________________________________\n");
             alert.setText("Chicken!");
             panel.add(alert);
             panel.revalidate();

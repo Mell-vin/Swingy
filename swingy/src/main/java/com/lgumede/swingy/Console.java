@@ -2,6 +2,7 @@ package com.lgumede.swingy;
 
 import java.util.Scanner;
 
+import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.view.Terminal;
 
 public class Console {
@@ -10,6 +11,8 @@ public class Console {
     static Swingy gui = new Swingy();
 
     public static void main(String[] args) {
-        new Terminal().menu(args);
+        
+		//new Terminal().menu(args);
+        
     }
 }

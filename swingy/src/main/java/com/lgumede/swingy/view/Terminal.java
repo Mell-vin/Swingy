@@ -24,6 +24,7 @@ public class Terminal {
                             + "2) For a saved character\n"
                             + "3) to open the gui\n"
                             + "0) to FOH :) \n");
+                            System.out.println("_______________________________________________________\n");
             choice = Integer.parseInt(input.nextLine());
 
             if (choice == 0){
@@ -38,6 +39,7 @@ public class Terminal {
             } else {
                 System.out.println("invalid choice. try again");
             }
+            System.out.println("_______________________________________________________\n");
         }
     }
 }
