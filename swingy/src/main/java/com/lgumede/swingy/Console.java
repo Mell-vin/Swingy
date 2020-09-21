@@ -1,5 +1,7 @@
 package com.lgumede.swingy;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Scanner;
 
 import com.lgumede.swingy.model.DB.DBConnection;
@@ -12,7 +14,8 @@ public class Console {
 
     public static void main(String[] args) {
         
+        DBConnection.insertHero("Lightning Rod", "HR", 2, 45, 60);
 		//new Terminal().menu(args);
-        
+    
     }
 }
