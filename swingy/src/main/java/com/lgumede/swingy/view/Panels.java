@@ -1,5 +1,6 @@
 package com.lgumede.swingy.view;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -8,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lgumede.swingy.controller.ControllerClass;
+import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 import com.lgumede.swingy.model.modelInterfaces.FightReady;
 import com.lgumede.swingy.model.villains.Filler;
@@ -23,6 +25,7 @@ public class Panels extends JFrame {
     private int btnW = 90;
     public  JLabel alert = new JLabel("");
     public JButton[] allBtns = null;
+    public JButton[] prevHeroes = null;
     public  JButton[][] grid = null;
      Filler F = new Filler();
     ControllerClass CC = new ControllerClass();
@@ -45,15 +48,15 @@ public class Panels extends JFrame {
             "console"
     };
     
-    public JPanel startView(JPanel panel, Panels viewPanel) {
-        if (panel != null && viewPanel != null) {
+    public void startView(JPanel panel) {
+        if (panel != null ) {
             panel.setLayout(null);
             panel.add(this.allBtns[0]);
             panel.add(this.allBtns[1]);
-            panel.add(this.allBtns[15]);
-            return (panel);
+            //panel.add(this.allBtns[15]);
+            return;
         }
-        return null;
+        return;
     }
 
     public JPanel scndView(JPanel panel, Panels viewPanel) {
@@ -74,6 +77,34 @@ public class Panels extends JFrame {
     /*
         creates the game grid as well as the game button
     */
+
+    public ArrayList<FightReady> previousHero(JPanel panel){
+        ArrayList<FightReady> lst = DBConnection.fetchHeroes();
+        //System.out.println(lst.size());
+        int count = lst.size();
+        int strtBtn = 300;
+        int chsBtn = 40;
+        if (count > 0){
+            this.prevHeroes = new JButton[count];
+            panel.removeAll();
+            for(int i = 0; i < count; i++){
+            this.prevHeroes[i] = new JButton();
+            this.prevHeroes[i].setBounds(strtBtn, chsBtn, 250, 30);
+            chsBtn += 40;
+            this.prevHeroes[i].setText(lst.get(i).getID() + " " + lst.get(i).getName());
+            panel.add(this.prevHeroes[i]);
+        }
+        }else {
+            this.startView(panel);
+            alert.setBounds(630, 245, 150, 400);
+            this.alert.setText("No saved heroes");
+            panel.add(this.alert);
+            return null;
+        }
+        panel.revalidate();
+        panel.repaint();
+        return lst;
+    }
 
     public void gameView(JPanel panel, Panels viewPanel, FightReady hero, EvilVills villain) {
         if (panel != null && viewPanel != null) {

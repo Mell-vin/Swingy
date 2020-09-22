@@ -14,6 +14,9 @@ public interface FightReady {
     public String getArtifactName();
     public void setAttack(int num);
     public void setDefense(int num);
+    public void setLevel(int num);
+    public void setID(int num);
+    public int getID();
     public void setHitPoints(int num);
     public int getRow();
     public int getCol();

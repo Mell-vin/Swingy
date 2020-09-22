@@ -3,6 +3,7 @@ package com.lgumede.swingy.view;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -28,6 +29,7 @@ public class GUI implements ActionListener {
     static JLabel alerts = new JLabel("");
     static Console cnsl = new Console();
     Panels viewPanels = new Panels();
+    ArrayList<FightReady> fr = null;
     FightReady hero;
     EvilVills villain;
 
@@ -40,9 +42,15 @@ public class GUI implements ActionListener {
         for(int i = 0; i < this.viewPanels.allBtns.length; i++){
             this.viewPanels.allBtns[i].addActionListener(this);
         }
-        GUI.panel = viewPanels.startView(GUI.panel, viewPanels);
+        viewPanels.startView(GUI.panel);
         frame.add(panel);
         frame.setVisible(true); //duuh
+    }
+
+    public void regBtns() {
+        for(int i = 0; i < this.viewPanels.prevHeroes.length; i++){
+            this.viewPanels.prevHeroes[i].addActionListener(this);
+        }
     }
 
     public void consoleGame(FightReady hero, EvilVills villain) {
@@ -102,8 +110,8 @@ public class GUI implements ActionListener {
             GUI.panel = viewPanels.scndView(panel, viewPanels);
 
         } else if (e.getSource() == viewPanels.allBtns[1]) {
-            System.out.println("Prev");
-
+            fr = viewPanels.previousHero(panel);
+            regBtns();
         }  else if (e.getSource() == viewPanels.allBtns[2]) {
             hero = new LightningRod("Lightning Rod", "LR");
             viewPanels.gameView(panel, viewPanels, hero, villain);
@@ -147,6 +155,12 @@ public class GUI implements ActionListener {
             viewPanels.gameView(panel, viewPanels, hero, villain);
         }   else if (e.getSource() == viewPanels.allBtns[15]) {
             //Console.main(null);
+        } else {
+            for (int i = 0; i< viewPanels.prevHeroes.length; i++){
+                if (e.getSource() == viewPanels.prevHeroes[i]){
+                    viewPanels.gameView(panel, viewPanels, fr.get(i), villain);
+                }
+            }
         }
     }
 }

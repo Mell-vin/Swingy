@@ -7,6 +7,7 @@ public abstract class Heroes {
 	private int row;
 	private int col;
 	private int limit;
+	int ID;
 	private int prevRow;
 	private int prevCol;
 	//artifact;
@@ -32,6 +33,13 @@ public abstract class Heroes {
 		this.col += col;
 	}
 
+	public void setID(int num) {
+		this.ID = num;
+	} 
+
+	public int getID(){
+		return this.ID;
+	}
 	public int getRow() {
 		return this.row;
 	}

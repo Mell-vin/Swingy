@@ -96,7 +96,7 @@
 				<manifest>
 				  <addClasspath>true</addClasspath>
 				  <classpathPrefix>lib/</classpathPrefix>
-				  <mainClass>com.lgumede.swingy.Console</mainClass>
+				  <mainClass>com.lgumede.swingy.Swingy</mainClass>
 				</manifest>
 			  </archive>
 			</configuration>
