@@ -113,7 +113,7 @@ public class Panels extends JFrame {
             int part1 = (level - 1) * 5;
             int part2 = 10 - (level % 2);
             int dims = part1 + part2;
-		    System.out.println("Grid is " + dims + "x" + dims + " in size\n");
+		    System.out.println("Grid is " + hero.getRow() + "x" + hero.getCol() + " in size\n");
             if (level == 5) {
                 this.alert.setText("Max level reached.");
             }

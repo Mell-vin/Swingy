@@ -10,11 +10,13 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.lgumede.swingy.Console;
+import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.model.heroes.AllPower;
 import com.lgumede.swingy.model.heroes.LightningRod;
 import com.lgumede.swingy.model.heroes.MudSlide;
@@ -30,7 +32,7 @@ public class GUI implements ActionListener {
     static Console cnsl = new Console();
     Panels viewPanels = new Panels();
     ArrayList<FightReady> fr = null;
-    FightReady hero;
+    FightReady hero = null;
     EvilVills villain;
 
     public void SetWindow() {
@@ -44,6 +46,18 @@ public class GUI implements ActionListener {
         }
         viewPanels.startView(GUI.panel);
         frame.add(panel);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame, 
+                    "Are you sure you want to close this window?", "Close Window?", 
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    DBConnection.updateHero(hero);
+                    System.exit(0);
+                }
+            }
+        });
         frame.setVisible(true); //duuh
     }
 
@@ -158,7 +172,8 @@ public class GUI implements ActionListener {
         } else {
             for (int i = 0; i< viewPanels.prevHeroes.length; i++){
                 if (e.getSource() == viewPanels.prevHeroes[i]){
-                    viewPanels.gameView(panel, viewPanels, fr.get(i), villain);
+                    hero = fr.get(i);
+                    viewPanels.gameView(panel, viewPanels, hero, villain);
                 }
             }
         }

@@ -44,11 +44,6 @@ public abstract class Heroes {
 		return this.row;
 	}
 
-	public void resetRowCol(int num) {
-		this.col = num;
-		this.row = num;
-	}
-
 	public void resetRowCol(int x, int y) {
 		this.col = y;
 		this.row = x;

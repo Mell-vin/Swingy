@@ -11,12 +11,16 @@ public interface FightReady {
     public String getName();
     public int getLevel();
     public ImageIcon getHero();
+    public String getHeroClass();
+    public void heroLimit(int level);
     public String getArtifactName();
     public void setAttack(int num);
+    public int getAttack();
     public void setDefense(int num);
     public void setLevel(int num);
     public void setID(int num);
     public int getID();
+    public int getHitPoints();
     public void setHitPoints(int num);
     public int getRow();
     public int getCol();
