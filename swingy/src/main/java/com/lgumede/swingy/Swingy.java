@@ -1,6 +1,5 @@
 package com.lgumede.swingy;
 
-import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.view.GUI;
 import com.lgumede.swingy.view.Terminal;
 

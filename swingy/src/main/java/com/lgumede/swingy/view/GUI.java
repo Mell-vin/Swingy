@@ -37,7 +37,7 @@ public class GUI implements ActionListener {
 
     public void SetWindow() {
         // configuring our window
-    	frame.setSize(800, 750); // set the si--,.. duuh
+    	frame.setSize(800, 900); // set the si--,.. duuh
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         viewPanels.setBtns();
@@ -69,6 +69,7 @@ public class GUI implements ActionListener {
 
     public void consoleGame(FightReady hero, EvilVills villain) {
         int choice = 37;
+        int next = 0;
         Scanner input = new Scanner(System.in);
         viewPanels.setBtns();
         viewPanels.gameView(panel, viewPanels, hero, villain);
@@ -91,29 +92,39 @@ public class GUI implements ActionListener {
                 System.out.println("Good bye");
                 return;
             }else if (choice == 2){
-                System.out.println("\nmoving down\n");
+                //System.out.println("\nmoving down\n");
                 this.viewPanels.moveHero(panel, 2, hero, viewPanels.allBtns);
             }else if (choice == 4){
-                System.out.println("\nmoving left\n");
+                //System.out.println("\nmoving left\n");
                 this.viewPanels.moveHero(panel, 4, hero, viewPanels.allBtns);
             } else if (choice == 6){      
-                System.out.println("\nmoving right\n");          
+                //System.out.println("\nmoving right\n");          
                 this.viewPanels.moveHero(panel, 3, hero, viewPanels.allBtns);
             } else if (choice == 8){
-                System.out.println("\nmoving up\n");
+                //System.out.println("\nmoving up\n");
                 this.viewPanels.moveHero(panel, 1, hero, viewPanels.allBtns);
-            } else if (choice == 1 || choice == 3){                
+            } else if (choice == 1){                
                 if ((new Random()).nextInt(4) == 1){
                     this.viewPanels.CC.runAway(panel, hero, this.viewPanels.grid, this.viewPanels.alert);
                 } else {
                     this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
+                    next = 1;
                 }
+            } else if (choice == 3){
+                this.viewPanels.CC.fight(panel, this.viewPanels, hero, this.viewPanels.grid);
+                next = 1;
             } else if (choice == 5){                
-                //
-            } else if (choice == 7 || choice == 9){                
-                viewPanels.alert.setText(" ");
-                hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
-                viewPanels.gameView(panel, viewPanels, hero, villain);
+                GUI gui = new GUI();
+                gui.SetWindow();
+            } else if (choice == 7 || choice == 9){      
+                if (next == 1){
+                    next = 0;
+                    viewPanels.alert.setText(" ");
+                    hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
+                    viewPanels.gameView(panel, viewPanels, hero, villain);
+                }else{
+                    System.out.println("You cant do that (''- )...");
+                }
             }
             System.out.println("_______________________________________________________\n");
         }

@@ -106,6 +106,34 @@ public class Panels extends JFrame {
         return lst;
     }
 
+    public static void heroStats (FightReady hero, JPanel panel) {
+        JLabel stats = new JLabel();
+        JLabel headings = new JLabel();
+
+        headings.setBounds(10, 675, 500, 10);
+        stats.setBounds(10, 685, 500, 15);
+        headings.setText("Name | HeroClass | Attack | Defense | HitPoints | Level");
+        System.out.println("Name | HeroClass | Attack | Defense | HitPoints | Level");
+
+        stats.setText(hero.getName()
+                + "   |   " + hero.getHeroClass()
+                + "   |   " + hero.getAttack()
+                + "   |   " + hero.getDefense()
+                + "   |   " + hero.getHitPoints()
+                + "   |   " + hero.getLevel()
+        );
+
+        System.out.println(hero.getName()
+                + " | " + hero.getHeroClass()
+                + " | " + hero.getAttack()
+                + " | " + hero.getDefense()
+                + " | " + hero.getHitPoints()
+                + " | " + hero.getLevel()
+        );
+        panel.add(headings);
+        panel.add(stats);
+    }
+
     public void gameView(JPanel panel, Panels viewPanel, FightReady hero, EvilVills villain) {
         if (panel != null && viewPanel != null) {
             int level = hero.getLevel();
@@ -113,27 +141,22 @@ public class Panels extends JFrame {
             int part1 = (level - 1) * 5;
             int part2 = 10 - (level % 2);
             int dims = part1 + part2;
-		    System.out.println("Grid is " + hero.getRow() + "x" + hero.getCol() + " in size\n");
             if (level == 5) {
+                System.out.println("Max level reached.");
                 this.alert.setText("Max level reached.");
             }
-            //System.out.println("Dims on level up is " + dims);
             playArea = new Container();
-            // if (hero.getExperience() == 0){
-            //     playArea = getContentPane();
-            // }
             playArea.setLayout(null);
             playArea.setLayout(new GridLayout(dims, dims));
             for (int i = 0; i < dims; i++) {
                 for (int j = 0; j < dims; j++){
-                    //System.out.println("i and dims and j: " + i + " "  + dims  + " " + j);
                     if (i % 2 == 0) {
                         if (j % 2 == 1) {
                             if ((new Random()).nextInt(2) == 1){
                                 villain = F.newVillain(i, level);
                             //this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
-                           // this.grid[i][j].setForeground(clr);
+                            this.grid[i][j].setForeground(clr);
                             }
                         }
                     } else if ( i % 2 == 1){
@@ -142,17 +165,17 @@ public class Panels extends JFrame {
                                 villain = F.newVillain(i, level);
                             //this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
-                            //this.grid[i][j].setForeground(clr);
+                            this.grid[i][j].setForeground(clr);
                             }
                         }
                     }
                     playArea.add(grid[i][j]);
                 }
             }
-            //System.out.println("Row and col " + hero.getRow() + " "  + hero.getCol());
             playArea.setBounds(20, 20, 600, 650);
             this.grid[(int) Math.ceil(dims / 2)][(int) Math.ceil(dims / 2)].setIcon(hero.getHero());
             panel.removeAll();
+            Panels.heroStats(hero, panel);
             panel.add(playArea);
             panel.add(this.alert);
             panel.add(this.allBtns[7]);

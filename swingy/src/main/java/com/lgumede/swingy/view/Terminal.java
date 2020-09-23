@@ -3,12 +3,13 @@ package com.lgumede.swingy.view;
 import java.util.Scanner;
 
 import com.lgumede.swingy.Swingy;
+import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.model.heroCnsl.HeroFactoryTmnl;
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 import com.lgumede.swingy.model.modelInterfaces.FightReady;
 
 public class Terminal {
-    FightReady hero;
+    FightReady hero = null;
     EvilVills villain;
     static int choice = 37;
     static Swingy gui = new Swingy();
@@ -28,6 +29,7 @@ public class Terminal {
             choice = Integer.parseInt(input.nextLine());
 
             if (choice == 0){
+                DBConnection.updateHero(hero);
                 System.out.println("Good bye");
             }else if (choice == 1){
                 hero = HFT.heroMaker();

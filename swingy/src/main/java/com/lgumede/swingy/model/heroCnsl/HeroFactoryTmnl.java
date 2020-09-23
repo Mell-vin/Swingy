@@ -71,6 +71,7 @@ public class HeroFactoryTmnl {
                         return heroList.get(i);
                     } else if (choice < heroList.size() || choice > heroList.size()){
                         System.out.println("No such option. choose again");
+                        break;
                     }
                 }
             }
