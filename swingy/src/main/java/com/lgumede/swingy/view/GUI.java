@@ -102,7 +102,7 @@ public class GUI implements ActionListener {
             } else if (choice == 8){
                 System.out.println("\nmoving up\n");
                 this.viewPanels.moveHero(panel, 1, hero, viewPanels.allBtns);
-            } else if (choice == 1){                
+            } else if (choice == 1 || choice == 3){                
                 if ((new Random()).nextInt(4) == 1){
                     this.viewPanels.CC.runAway(panel, hero, this.viewPanels.grid, this.viewPanels.alert);
                 } else {

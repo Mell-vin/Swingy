@@ -10,24 +10,25 @@ import com.lgumede.swingy.model.modelInterfaces.FightReady;
 public class DBConnection {
     static Connection conn = null;
 
-    public static Connection connect() {
+    public static void connect() {
 
-        String ffs = "org.sqlite.JDBC";
+        final String ffs = "org.sqlite.JDBC";
         try {
             Class.forName(ffs);
-            conn = DriverManager.getConnection("jdbc:sqlite:SwingyHeroes.db");
+            DBConnection.conn = DriverManager.getConnection("jdbc:sqlite:SwingyHeroes.db");
             //System.out.println("Connected boii");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Eish " + e);
         }
-        return conn;
     }
 
-    public static void insertHero(String name, String heroClass, int level, int attack,int defense, int hitPoints){
-        conn = DBConnection.connect();
+    public static void insertHero(final String name, final String heroClass, final int level, final int attack,final int defense, final int hitPoints){
+        if(DBConnection.conn == null){
+            DBConnection.connect();
+        }
         PreparedStatement ps = null;
         try {
-            String sql = "INSERT INTO swingyHeroes (name, heroClass, level, attack, defense, hitPoints)VALUES  (?,?,?,?,?,?)";
+            final String sql = "INSERT INTO swingyHeroes (name, heroClass, level, attack, defense, hitPoints)VALUES  (?,?,?,?,?,?)";
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, heroClass);
@@ -37,29 +38,31 @@ public class DBConnection {
             ps.setInt(6, hitPoints);
             ps.execute();
             System.out.println("Hero Saved!");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    public static void updateHero(FightReady hero) {
-        conn = DBConnection.connect();
+    public static void updateHero(final FightReady hero) {
+        if (DBConnection.conn == null){
+            DBConnection.connect();
+        }
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         if (hero != null){
             try {
-                String sql = "UPDATE swingyHeroes set level = ?, attack = ?, defense = ?, hitPoints = ? WHERE ID = ?";
-                String sql2 = "SELECT name from swingyHeroes WHERE ID = ?";
+                final String sql = "UPDATE swingyHeroes set level = ?, attack = ?, defense = ?, hitPoints = ? WHERE ID = ?";
+                final String sql2 = "SELECT name from swingyHeroes WHERE ID = ?";
     
-                ps = conn.prepareStatement(sql2);
+                ps = DBConnection.conn.prepareStatement(sql2);
                 ps.setInt(1, hero.getID());
                 rs = ps.executeQuery();
                 if (rs.getFetchSize() == 0) {
                     DBConnection.insertHero(hero.getName(), hero.getHeroClass(), hero.getLevel(), hero.getAttack(),
                             hero.getDefense(), hero.getHitPoints());
                 } else {
-                    ps = conn.prepareStatement(sql);
+                    ps = DBConnection.conn.prepareStatement(sql);
                     ps.setInt(1, hero.getLevel());
                     ps.setInt(2, hero.getAttack());
                     ps.setInt(3, hero.getDefense());
@@ -68,34 +71,36 @@ public class DBConnection {
                     ps.execute();
                     System.out.println("Hero updated");
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 System.out.println(e.toString());
             }
         }
     }
 
     public static ArrayList<FightReady> fetchHeroes() {
-        ArrayList<FightReady> heroList= new ArrayList<FightReady>();
+        final ArrayList<FightReady> heroList= new ArrayList<FightReady>();
         FightReady hero = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         int x, y = 0;
-        conn = DBConnection.connect();
-        Filler fl = new Filler();
+        if (DBConnection.conn == null){
+            DBConnection.connect();
+        }
+        final Filler fl = new Filler();
         
         try {
-            String sql = "SELECT * FROM swingyHeroes";
-            ps = conn.prepareStatement(sql);
+            final String sql = "SELECT * FROM swingyHeroes";
+            ps = DBConnection.conn.prepareStatement(sql);
             rs = ps.executeQuery();
 
             while (rs.next()){
-                System.out.println("Hero is " + rs.getString("name")+ " " + rs.getString("heroClass"));
+                //System.out.println("Hero is " + rs.getString("name")+ " " + rs.getString("heroClass"));
                 hero = fl.newHero(rs.getString("name"), rs.getString("heroClass"));
                 hero.setLevel(rs.getInt("level"));
                 hero.heroLimit(hero.getLevel());
                 x = (int) Math.ceil(hero.getLimit() / 2);
                 y = (int) Math.ceil(hero.getLimit() / 2);
-                System.out.println("x y " + x + " " + y);
+                //System.out.println("x y " + x + " " + y);
                 hero.resetRowCol(x, y);
                 hero.setAttack(rs.getInt("attack"));
                 hero.setHitPoints(rs.getInt("hitPoints"));
@@ -104,7 +109,7 @@ public class DBConnection {
                 heroList.add(hero);
             }
             return heroList;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(e.toString());
         }
         return null;

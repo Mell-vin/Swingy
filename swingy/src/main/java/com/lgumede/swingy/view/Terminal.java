@@ -16,7 +16,7 @@ public class Terminal {
     HeroFactoryTmnl HFT = new HeroFactoryTmnl();
     static Scanner input = new Scanner(System.in);
 
-    public void menu(String[] args){
+    public void menu(){
         System.out.println("Welcome to swingy. please choose and option");
 
         while(choice != 0) {
@@ -33,9 +33,13 @@ public class Terminal {
                 hero = HFT.heroMaker();
                 Terminal.notGUI.consoleGame(hero, villain);
             }else if (choice == 2){
-                System.out.println("Choose your saved hero");
+                hero = HFT.prevHero();
+                if (hero != null) {
+                    Terminal.notGUI.consoleGame(hero, villain);
+                }
             } else if (choice == 3){                
-                Swingy.main(args);
+                GUI gui = new GUI();
+                gui.SetWindow();
             } else {
                 System.out.println("invalid choice. try again");
             }

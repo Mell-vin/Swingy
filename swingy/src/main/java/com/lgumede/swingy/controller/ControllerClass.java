@@ -175,21 +175,29 @@ public class ControllerClass {
      public void runAway(JPanel panel, FightReady hero, JButton[][] grid, JLabel alert){
         int x;
         int y;
+        String name = null;
 
-        //if ((new Random()).nextInt(4) == 1){
+        
             x = hero.getRow();
             y = hero.getCol();
-            grid[x][y].setIcon(null);
-            x = hero.getPrevRow();
-            y = hero.getPrevCol();
-            grid[x][y].setIcon(hero.getHero());
-            hero.resetRowCol(x, y);
-            System.out.println("Chicken!");
-            System.out.println("_______________________________________________________\n");
-            alert.setText("Chicken!");
-            panel.add(alert);
-            panel.revalidate();
-            panel.repaint();
-       // }
+            name = grid[x][y].getText();
+            if (name.isEmpty()){
+                System.out.println("No villain here");
+                System.out.println("_______________________________________________________\n");
+                alert.setText("No villain here!");
+                panel.add(alert);
+            } else {
+                grid[x][y].setIcon(null);
+                x = hero.getPrevRow();
+                y = hero.getPrevCol();
+                grid[x][y].setIcon(hero.getHero());
+                hero.resetRowCol(x, y);
+                System.out.println("Chicken!");
+                System.out.println("_______________________________________________________\n");
+                alert.setText("Chicken!");
+                panel.add(alert);
+                panel.revalidate();
+                panel.repaint();
+            }
      }
 }
