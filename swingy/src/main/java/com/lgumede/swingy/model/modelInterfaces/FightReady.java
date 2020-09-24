@@ -11,6 +11,9 @@ public interface FightReady {
     public String getName();
     public int getLevel();
     public ImageIcon getHero();
+    public void resetAttack(int num);
+    public void resetDefense(int num);
+    public void resetHitPoints(int num);
     public String getHeroClass();
     public void heroLimit(int level);
     public String getArtifactName();

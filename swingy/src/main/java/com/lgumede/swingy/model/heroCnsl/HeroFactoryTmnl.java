@@ -69,7 +69,7 @@ public class HeroFactoryTmnl {
                 for(int i = 0; i < heroList.size(); i++) {
                     if ((choice - 1) == i){
                         return heroList.get(i);
-                    } else if (choice < heroList.size() || choice > heroList.size()){
+                    } else if (choice < 0 || choice > heroList.size()){
                         System.out.println("No such option. choose again");
                         break;
                     }

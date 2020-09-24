@@ -15,7 +15,7 @@ public class Artifacts {
         String name = this.type[ new Random().nextInt(3)];
 
         if (villName.equals("Bane")){
-            hero.setArtifact(name, 5);
+            hero.setArtifact(name, 25);
         } else if (villName.equals("Freiza Gold")){
             hero.setArtifact(name, 20);
         } else if (villName.equals("Hvitserk")){

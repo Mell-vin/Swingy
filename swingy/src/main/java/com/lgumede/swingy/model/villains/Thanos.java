@@ -4,8 +4,8 @@ import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 
 public class Thanos implements EvilVills {
 	private String name = "Thanosy";
-	private final int attack = 46;
-	private final int experienceGain = 1400;
+	private   int attack = 46;
+	private   int experienceGain = 1400;
 
 	public String getName() {
 		return this.name;

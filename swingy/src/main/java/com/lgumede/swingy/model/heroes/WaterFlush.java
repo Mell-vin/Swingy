@@ -49,6 +49,18 @@ public class WaterFlush extends Heroes implements FightReady {
 		}
 	}
 
+	public void resetAttack(int num) {
+		this.attack = num;
+	}
+
+	public void resetDefense(int num) {
+		this.defense = num;
+	}
+
+	public void resetHitPoints(int num) {
+		this.hitPoints = num;
+	}
+
 	public String getArtifactName() {
 		return this.artifact;
 	}

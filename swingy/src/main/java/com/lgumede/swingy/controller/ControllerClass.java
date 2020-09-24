@@ -38,6 +38,7 @@ public class ControllerClass {
             panel.add(alert);
         } else {
             if (x == (limit - 1) || y == (limit - 1) || x == 0 || y == 0){
+                Panels.borderReached = 1;
                 hero.borderReached(500, alert, panel);
                 panel.add(allbtns[14]);
                 panel.remove(allbtns[7]);
@@ -109,6 +110,9 @@ public class ControllerClass {
                 System.out.println("_______________________________________________________\n");
                 viewPanel.alert.setText("No villain here!");
                 panel.add(viewPanel.alert);
+                panel.revalidate();
+                panel.repaint();
+                return;
             } else {
                 if (name.equals("Bane")){
                     villain = new Bane();
@@ -137,6 +141,10 @@ public class ControllerClass {
                         viewPanel.alert.setText("You won a " + hero.getArtifactName() + "\n");
                         panel.add(viewPanel.allBtns[14]);
                         panel.add(viewPanel.alert);
+                        panel.remove(viewPanel.allBtns[7]);
+                        panel.remove(viewPanel.allBtns[8]);
+                        panel.remove(viewPanel.allBtns[9]);
+                        panel.remove(viewPanel.allBtns[10]);
                         hero.upgradeHero(villainAttack, panel, viewPanel, villain);
                     } else {
                         System.out.println("Bad luck. Game over\n");
@@ -148,9 +156,17 @@ public class ControllerClass {
                     if (new Random().nextInt(3) == 1){
                         artifact.addArtifact(hero, villain);
                         viewPanel.alert.setText("nice! won a " + hero.getArtifactName() + "\n");
+                        panel.remove(viewPanel.allBtns[7]);
+                        panel.remove(viewPanel.allBtns[8]);
+                        panel.remove(viewPanel.allBtns[9]);
+                        panel.remove(viewPanel.allBtns[10]);
                     } else {
                         System.out.println("You Win!\n");
                         viewPanel.alert.setText("You Win!");
+                        panel.remove(viewPanel.allBtns[7]);
+                        panel.remove(viewPanel.allBtns[8]);
+                        panel.remove(viewPanel.allBtns[9]);
+                        panel.remove(viewPanel.allBtns[10]);
                     }
                         panel.add(viewPanel.allBtns[14]);
                         panel.add(viewPanel.alert);
@@ -158,14 +174,9 @@ public class ControllerClass {
                 }
         }
         System.out.println("_______________________________________________________\n");
-            panel.remove(viewPanel.allBtns[7]);
-            panel.remove(viewPanel.allBtns[8]);
-            panel.remove(viewPanel.allBtns[9]);
-            panel.remove(viewPanel.allBtns[10]);
             panel.revalidate();
             panel.repaint();
         }
-        return;
     }
 
     /*

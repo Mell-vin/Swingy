@@ -102,9 +102,9 @@ public class DBConnection {
                 y = (int) Math.ceil(hero.getLimit() / 2);
                 //System.out.println("x y " + x + " " + y);
                 hero.resetRowCol(x, y);
-                hero.setAttack(rs.getInt("attack"));
-                hero.setHitPoints(rs.getInt("hitPoints"));
-                hero.setDefense(rs.getInt("defense"));
+                hero.resetAttack(rs.getInt("attack"));
+                hero.resetHitPoints(rs.getInt("hitPoints"));
+                hero.resetDefense(rs.getInt("defense"));
                 hero.setID(rs.getInt("ID"));
                 heroList.add(hero);
             }

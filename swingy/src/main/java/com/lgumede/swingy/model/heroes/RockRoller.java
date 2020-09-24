@@ -44,6 +44,18 @@ public class RockRoller extends Heroes implements FightReady{
 		this.defense += defense;
 	}
 
+	public void resetAttack(int num) {
+		this.attack = num;
+	}
+
+	public void resetDefense(int num) {
+		this.defense = num;
+	}
+
+	public void resetHitPoints(int num) {
+		this.hitPoints = num;
+	}
+
 	public void setArtifact(String artifactName, int num){
 		this.artifact = artifactName;
 		if (artifactName.equals("Weapon")){

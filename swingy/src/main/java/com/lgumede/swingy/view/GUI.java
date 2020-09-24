@@ -81,15 +81,13 @@ public class GUI implements ActionListener {
                             + "6) to move to the right of the grid\n"
                             + "1) to run\n"
                             + "3) to fight\n"
-                            + "7) to restart\n"
-                            + "9) for next level\n"
+                            + "7) to restart\\next level\n"
                             + "5) to start GUI\n"
                             + "0) to return to start\n");
             System.out.println("_______________________________________________________\n");
             choice = Integer.parseInt(input.nextLine());
 
             if (choice == 0){
-                System.out.println("Good bye");
                 return;
             }else if (choice == 2){
                 //System.out.println("\nmoving down\n");
@@ -116,9 +114,10 @@ public class GUI implements ActionListener {
             } else if (choice == 5){                
                 GUI gui = new GUI();
                 gui.SetWindow();
-            } else if (choice == 7 || choice == 9){      
-                if (next == 1){
+            } else if (choice == 7){      
+                if (next == 1 || Panels.borderReached == 1){
                     next = 0;
+                    Panels.borderReached = 0;
                     viewPanels.alert.setText(" ");
                     hero.resetRowCol((int) Math.ceil(hero.getLimit()/ 2), hero.getLimit()/ 2);
                     viewPanels.gameView(panel, viewPanels, hero, villain);
@@ -136,7 +135,9 @@ public class GUI implements ActionListener {
 
         } else if (e.getSource() == viewPanels.allBtns[1]) {
             fr = viewPanels.previousHero(panel);
-            regBtns();
+            if (fr != null) {
+                regBtns();
+            }
         }  else if (e.getSource() == viewPanels.allBtns[2]) {
             hero = new LightningRod("Lightning Rod", "LR");
             viewPanels.gameView(panel, viewPanels, hero, villain);

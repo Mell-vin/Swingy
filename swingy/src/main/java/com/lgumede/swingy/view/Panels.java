@@ -18,8 +18,9 @@ import java.awt.*;
 
 
 public class Panels extends JFrame {
-     JPanel panel = new JPanel();
+    public JPanel panel = new JPanel();
     private Container playArea;
+    public static int borderReached = 0;
     private Color clr = Color.BLACK;
     private int btnH = 30;
     private int btnW = 90;
@@ -30,7 +31,7 @@ public class Panels extends JFrame {
      Filler F = new Filler();
     ControllerClass CC = new ControllerClass();
 
-    private final String[] btnNames = {"New hero",
+    private   String[] btnNames = {"New hero",
             "Prev hero",
             "Lighting Rod", 
             "Water Flush",
@@ -99,6 +100,8 @@ public class Panels extends JFrame {
             alert.setBounds(630, 245, 150, 400);
             this.alert.setText("No saved heroes");
             panel.add(this.alert);
+            panel.revalidate();
+            panel.repaint();
             return null;
         }
         panel.revalidate();
@@ -129,7 +132,7 @@ public class Panels extends JFrame {
                 + " | " + hero.getDefense()
                 + " | " + hero.getHitPoints()
                 + " | " + hero.getLevel()
-        );
+                + "\n");
         panel.add(headings);
         panel.add(stats);
     }
@@ -141,6 +144,7 @@ public class Panels extends JFrame {
             int part1 = (level - 1) * 5;
             int part2 = 10 - (level % 2);
             int dims = part1 + part2;
+            System.out.println("Grid size is " + dims + " x " + dims + "\n");
             if (level == 5) {
                 System.out.println("Max level reached.");
                 this.alert.setText("Max level reached.");

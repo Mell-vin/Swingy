@@ -6,8 +6,8 @@ import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 
 public class FreizaGold implements EvilVills {
 	private String name = "Freiza Gold";
-	private final int attack = 65;
-	private final int experienceGain = 2000;
+	private   int attack = 65;
+	private   int experienceGain = 2000;
 	
 	public String getName() {
 		return this.name;
