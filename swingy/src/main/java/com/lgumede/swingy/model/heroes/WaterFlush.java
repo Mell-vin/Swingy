@@ -3,6 +3,8 @@ package com.lgumede.swingy.model.heroes;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 import com.lgumede.swingy.model.modelInterfaces.FightReady;
@@ -77,7 +79,7 @@ public class WaterFlush extends Heroes implements FightReady {
 		this.hitPoints += hitPoints;
 	}
 
-	public WaterFlush(String name, String heroClass) {
+	public WaterFlush(@NotEmpty String name, @NotEmpty String heroClass) {
 		super(name, heroClass);
 		// TODO Auto-generated constructor stub
 	}

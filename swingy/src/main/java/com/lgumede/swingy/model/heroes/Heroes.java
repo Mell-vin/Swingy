@@ -1,28 +1,57 @@
 package com.lgumede.swingy.model.heroes;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import com.lgumede.swingy.model.modelInterfaces.FightReady;
+
 public abstract class Heroes {
-	private String name = "";
+
+	@NotEmpty(message = "Name cannot be null")
+	private String name;
 	private int level = 0;
-	private String heroClass = "";
+
+	@NotEmpty(message = "Name cannot be null")
+	private String heroClass;
 	private int row;
 	private int col;
 	private int limit;
 	int ID;
 	private int prevRow;
 	private int prevCol;
-	//artifact;
-	
-	public Heroes (String name, String heroClass) {
+	static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
+	// artifact;
+
+	public Heroes(@NotEmpty String Hname, @NotEmpty String HheroClass) {
 		this.heroLimit(this.level);
 		this.setCol((int) Math.ceil(this.limit / 2));
 		this.setRow((int) Math.ceil(this.limit / 2));
 		this.setPrev((int) Math.ceil(this.limit / 2), (int) Math.ceil(this.limit / 2));
-		this.name = name;
-		this.heroClass = heroClass;
+		this.name = Hname;
+		this.heroClass = HheroClass;
 	}
 
 	public String getName() {
 		return this.name;
+	}
+
+	public static int validatorr(FightReady hero) {
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<FightReady>> violations = validator.validate(hero);
+		if (violations.size() > 0) {
+			for (ConstraintViolation<FightReady> violation : violations) {
+				System.out.println(violation.getMessage()); 
+			}
+			return 0;
+		}
+		return 1;
 	}
 
 	public void setRow(int row) {

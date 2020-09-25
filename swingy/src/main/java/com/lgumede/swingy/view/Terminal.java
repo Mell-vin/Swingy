@@ -33,7 +33,11 @@ public class Terminal {
                 System.out.println("Good bye");
             }else if (choice == 1){
                 hero = HFT.heroMaker();
-                Terminal.notGUI.consoleGame(hero, villain);
+                if (hero == null){
+                    System.out.println("...");
+                }  else {
+                    Terminal.notGUI.consoleGame(hero, villain);
+                }
             }else if (choice == 2){
                 hero = HFT.prevHero();
                 if (hero != null) {

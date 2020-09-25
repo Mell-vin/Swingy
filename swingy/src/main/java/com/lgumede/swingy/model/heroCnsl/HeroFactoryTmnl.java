@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.lgumede.swingy.model.DB.DBConnection;
 import com.lgumede.swingy.model.heroes.AllPower;
+import com.lgumede.swingy.model.heroes.Heroes;
 import com.lgumede.swingy.model.heroes.LightningRod;
 import com.lgumede.swingy.model.heroes.MudSlide;
 import com.lgumede.swingy.model.heroes.RockRoller;
@@ -46,6 +47,9 @@ public class HeroFactoryTmnl {
                     choice = 2345;
                 } else {
                     System.out.println("Invalid choice ('' - )...");
+                }
+                if (Heroes.validatorr(hero) == 0) {
+                    return null;
                 }
             }
         }

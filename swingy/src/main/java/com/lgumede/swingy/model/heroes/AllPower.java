@@ -3,6 +3,8 @@ package com.lgumede.swingy.model.heroes;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.lgumede.swingy.model.modelInterfaces.EvilVills;
 import com.lgumede.swingy.model.modelInterfaces.FightReady;

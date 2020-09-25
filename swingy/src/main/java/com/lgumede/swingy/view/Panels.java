@@ -160,7 +160,7 @@ public class Panels extends JFrame {
                                 villain = F.newVillain(i, level);
                             //this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
-                            this.grid[i][j].setForeground(clr);
+                            //this.grid[i][j].setForeground(clr);
                             }
                         }
                     } else if ( i % 2 == 1){
@@ -169,7 +169,7 @@ public class Panels extends JFrame {
                                 villain = F.newVillain(i, level);
                             //this.grid[i][j].setBackground(Color.BLUE);
                             this.grid[i][j].setText(villain.getName());
-                            this.grid[i][j].setForeground(clr);
+                            //this.grid[i][j].setForeground(clr);
                             }
                         }
                     }
